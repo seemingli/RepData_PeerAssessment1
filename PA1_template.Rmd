@@ -35,6 +35,7 @@ data<-read.csv("activity.csv")
 data$interval<-sprintf("%04d", data$interval)
 data$time <- as.POSIXct(strptime(data$interval, format="%H%M"))
 ```
+
 ###What is mean total number of steps taken per day?
 Using the dplyr package, I computed the total number of steps taken per day. The data is then tabulated using the xtable package below.
 ``` {r total,results="asis"}
@@ -90,13 +91,15 @@ meanaggregates1<-summarise(aggregates1,meansteps=mean(totalsteps,na.rm=TRUE),med
 mean1<-meanaggregates1$meansteps
 median1<-meanaggregates$mediansteps
 ```
-
+A histogram of the total steps daily after imputation is plotted below.
 ``` {r plotimpute}
 ## plot histogram of total steps daily
 with(aggregates1,hist(totalsteps,breaks=20,main="Histogram of Total number of steps taken each day with imputed values",
              col="lightblue",xlab="Total Steps taken per day"))
 
 ```
+
+
 In the new dataset with the imputed values for `NA`s, the mean and median of the total number of steps taken per day are `r mean1` and `r median1` respectively. There is no impact of imputing missing data with the mean number of steps for each day as we can see from the histogram, mean and median.
 
 
